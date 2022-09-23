@@ -1,0 +1,32 @@
+version: '0.1'
+services:
+  grafana:
+    image: grafana/grafana-oss:latest
+    restart: always
+    container_name: grafana
+    hostname: grafana
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      - grafana-config:/etc/grafana
+      - grafana-data:/var/lib/grafana
+    ports:
+      - 3000:3000
+  mysql:
+    image: docker.io/mysql:5.7
+    restart: always
+    container_name: mysql
+    hostname: mysql
+    environment:
+      TZ: "Asia/Shanghai"
+      MYSQL_ROOT_PASSWORD: "root"
+    volumes:
+      - /root/mysql/conf:/etc/mysql/conf.d
+      - /root/mysql/data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    privileged: true
+volumes:
+  grafana-config:
+  grafana-data:
+
